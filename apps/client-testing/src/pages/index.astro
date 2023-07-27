@@ -1,0 +1,31 @@
+---
+//testing keys
+// {"publicKey":"BC5koZoTOHO9_M818EO3AgJDSMM16GoecgTAKeBk4dAH0q8X2Kao8hh5o0ycK2_t3vu3cBWm-p2f6fUX_BIhb-E","privateKey":"s3R9JPNveMo6SMY5BQn23jJNlUwKeinGYE1EM2Rw2WQ"}
+---
+
+<script>
+  import { newSubscription } from "web-push-notification";
+
+
+  const mySubscription = await newSubscription({
+    applicationServerKey:
+      "BC5koZoTOHO9_M818EO3AgJDSMM16GoecgTAKeBk4dAH0q8X2Kao8hh5o0ycK2_t3vu3cBWm-p2f6fUX_BIhb-E", //created in step 1
+  });
+  console.log(mySubscription);
+  console.log("end");
+</script>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <h1>Astro</h1>
+    <img id="hero-img" src="" />
+    <p>Welcome to Astro!</p>
+  </body>
+</html>

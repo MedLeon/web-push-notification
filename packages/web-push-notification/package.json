@@ -1,0 +1,17 @@
+{
+  "name": "web-push-notification",
+  "version": "1.0.0",
+  "main": "./src/server/index.ts",
+  "types": "./src/server/index.ts",
+  "license": "MPL-2.0",
+  "scripts": {
+    "generate": ""
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.5",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "http_ece": "^1.1.0"
+  }
+}
