@@ -3,10 +3,10 @@
 const crypto = require('crypto');
 const asn1 = require('asn1.js');
 const jws = require('jws');
+const { URL } = require('url');
 
-
-const WebPushConstants = require('./web-push-constants.js');
-const urlBase64Helper = require('./urlsafe-base64-helper');
+const WebPushConstants = require('./web-push-constants.cjs');
+const urlBase64Helper = require('./urlsafe-base64-helper.cjs');
 
 /**
  * DEFAULT_EXPIRATION is set to seconds in 12 hours
@@ -37,7 +37,33 @@ function toPEM(key) {
   });
 }
 
+function generateVAPIDKeys() {
+  const curve = crypto.createECDH('prime256v1');
+  curve.generateKeys();
 
+  let publicKeyBuffer = curve.getPublicKey();
+  let privateKeyBuffer = curve.getPrivateKey();
+
+  // Occassionally the keys will not be padded to the correct lengh resulting
+  // in errors, hence this padding.
+  // See https://github.com/web-push-libs/web-push/issues/295 for history.
+  if (privateKeyBuffer.length < 32) {
+    const padding = Buffer.alloc(32 - privateKeyBuffer.length);
+    padding.fill(0);
+    privateKeyBuffer = Buffer.concat([padding, privateKeyBuffer]);
+  }
+
+  if (publicKeyBuffer.length < 65) {
+    const padding = Buffer.alloc(65 - publicKeyBuffer.length);
+    padding.fill(0);
+    publicKeyBuffer = Buffer.concat([padding, publicKeyBuffer]);
+  }
+
+  return {
+    publicKey: publicKeyBuffer.toString('base64url'),
+    privateKey: privateKeyBuffer.toString('base64url')
+  };
+}
 
 function validateSubject(subject) {
   if (!subject) {
@@ -157,7 +183,7 @@ function validateExpiration(expiration) {
  * @return {Object}                 Returns an Object with the Authorization and
  * 'Crypto-Key' values to be used as headers.
  */
-export function getVapidHeaders(audience, subject, publicKey, privateKey, contentEncoding, expiration) {
+function getVapidHeaders(audience, subject, publicKey, privateKey, contentEncoding, expiration) {
   if (!audience) {
     throw new Error('No audience could be generated for VAPID.');
   }
@@ -217,3 +243,12 @@ export function getVapidHeaders(audience, subject, publicKey, privateKey, conten
   throw new Error('Unsupported encoding type specified.');
 }
 
+module.exports = {
+  generateVAPIDKeys: generateVAPIDKeys,
+  getFutureExpirationTimestamp: getFutureExpirationTimestamp,
+  getVapidHeaders: getVapidHeaders,
+  validateSubject: validateSubject,
+  validatePublicKey: validatePublicKey,
+  validatePrivateKey: validatePrivateKey,
+  validateExpiration: validateExpiration
+};

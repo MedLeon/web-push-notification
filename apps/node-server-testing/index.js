@@ -14,7 +14,7 @@ const pushSubscription = {
 
 // create notification information
 const notification = {
-  text: "....",
+  text: "NODE IS WORKING!",
 };
 
 // your Vapid Details from Step 1
@@ -25,8 +25,7 @@ const vapidDetails = {
   privateKey: "s3R9JPNveMo6SMY5BQn23jJNlUwKeinGYE1EM2Rw2WQ",
 };
 
-sendNotification(notification.text, pushSubscription, vapidDetails);
-
+sendNotification(notification.text, pushSubscription, vapidDetails)
 // const webpush = require("web-push");
 
 // // webpush.setGCMAPIKey('<Your GCM API Key Here>');
