@@ -1,7 +1,13 @@
+import { Buffer } from 'buffer';
 import crypto from "crypto";
 import ece from "http_ece";
 
-export const encrypt =  function (userPublicKey, userAuth, payload, contentEncoding) {
+export const encrypt = async function (
+  userPublicKey,
+  userAuth,
+  payload,
+  contentEncoding
+) {
   if (!userPublicKey) {
     throw new Error("No user public key provided for encryption.");
   }
@@ -36,21 +42,69 @@ export const encrypt =  function (userPublicKey, userAuth, payload, contentEncod
     payload = Buffer.from(payload);
   }
 
-  
-  const localCurve = crypto.createECDH("prime256v1");
-  // const localCurve = await generateECDHKeyPair();
+  let localPublicKey;
+  let salt;
+  let localPrivateKey;
+  let cipherText;
 
-  const localPublicKey = localCurve.generateKeys();
+  if (checkEnvironment() === "Node") {
+    const localCurve = crypto.createECDH("prime256v1");
+    localPrivateKey = localCurve;
+    localPublicKey = localCurve.generateKeys();
+    salt = crypto.randomBytes(16).toString("base64url");
 
-  const salt = crypto.randomBytes(16).toString("base64url");
+    console.log("localPublicKey", localPublicKey);
+    console.log("salt", salt);
+    console.log("localPrivateKey", localPrivateKey);
 
-  const cipherText = ece.encrypt(payload, {
-    version: contentEncoding,
-    dh: userPublicKey,
-    privateKey: localCurve,
-    salt: salt,
-    authSecret: userAuth,
-  });
+    cipherText = ece.encrypt(payload, {
+      version: contentEncoding,
+      dh: userPublicKey,
+      privateKey: localPrivateKey,
+      salt: salt,
+      authSecret: userAuth,
+    });
+  } else if (checkEnvironment() === "Deno") {
+  } else if (checkEnvironment() === "Cloudflare") {
+    /** @type {webcrypto} */
+    const web_crypto = globalThis.crypto;
+    const namedCurve = "P-256";
+    const keys = await web_crypto.subtle.generateKey(
+      {
+        name: "ECDH",
+        namedCurve: namedCurve,
+      },
+      true,
+      ["deriveKey", "deriveBits"]
+    );
+    localPrivateKey = keys.privateKey;
+    localPublicKey = keys.publicKey;
+    let array = new Uint8Array(16);
+    web_crypto.getRandomValues(array);
+    let salt = btoa(String.fromCharCode.apply(null, array))
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
+
+    console.log(salt);
+
+    // salt = web_crypto.getRandomValues(new Int8Array(16)).toString("base64url");
+
+    console.log("localPublicKey", localPublicKey);
+    console.log("salt", salt);
+    console.log("localPrivateKey", localPrivateKey);
+
+    cipherText = ece.encrypt(payload, {
+      version: contentEncoding,
+      dh: userPublicKey,
+      // privateKey: localPrivateKey,
+      keyid: localPublicKey,
+      salt: salt,
+      authSecret: userAuth,
+    });
+  } else {
+    throw new Error("Unknown environment");
+  }
 
   return {
     localPublicKey: localPublicKey,
@@ -58,9 +112,6 @@ export const encrypt =  function (userPublicKey, userAuth, payload, contentEncod
     cipherText: cipherText,
   };
 };
-
-
-
 
 // async function generateECDHKeyPair() {
 //   const namedCurve = 'P-256'; // Equivalent to prime256v1
@@ -74,3 +125,19 @@ export const encrypt =  function (userPublicKey, userAuth, payload, contentEncod
 //   );
 //   return keyPair;
 // }
+
+const checkEnvironment = function () {
+  if (
+    typeof process !== "undefined" &&
+    process.versions &&
+    process.versions.node
+  ) {
+    return "Node";
+  } else if (typeof Deno !== "undefined") {
+    return "Deno";
+  } else if (typeof addEventListener === "function") {
+    return "Cloudflare";
+  } else {
+    return "Unknown";
+  }
+};

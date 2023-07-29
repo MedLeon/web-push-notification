@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "astro": "^2.9.2",
-    "web-push-notification": "workspace:*"
+    "web-push-notification": "*"
   }
 }

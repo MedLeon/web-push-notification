@@ -16,6 +16,7 @@
     "asn1.js": "^5.4.1",
     "base64-arraybuffer": "^1.0.2",
     "http_ece": "^1.1.0",
-    "jws": "^4.0.0"
+    "jws": "^4.0.0",
+    "wasm-web-push": "*"
   }
 }

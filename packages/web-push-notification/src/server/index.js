@@ -1,11 +1,11 @@
+import wasmWebPush from "wasm-web-push";
 import { encrypt } from "./helper/encyption.js";
 import pkg from "./helper/vapid-helper.cjs";
+const { test_web_push } = wasmWebPush;
 const { getVapidHeaders } = pkg;
-
 
 // Default TTL is four weeks.
 const DEFAULT_TTL = 2419200;
-
 
 var supportedContentEncodings;
 (function (supportedContentEncodings) {
@@ -159,7 +159,7 @@ const generateRequestDetails = async function (
   //   });
   let requestPayload = null;
   if (payload) {
-    const encrypted = encrypt(
+    const encrypted = await encrypt(
       subscription.keys.p256dh,
       subscription.keys.auth,
       payload,
@@ -228,6 +228,9 @@ export const sendNotification = async function (
   vapidDetails,
   options
 ) {
+  console.log("sendNotification");
+  console.log(add(1, 2));
+
   // #TODO Add validation of input
   /*
         vapidHelper.validateSubject(subject);
@@ -240,7 +243,7 @@ export const sendNotification = async function (
     vapidDetails,
     options
   );
-  console.log(requestDetails)
+  console.log(requestDetails);
   const requestOptions = {
     method: requestDetails.method,
     headers: requestDetails.headers,
@@ -248,15 +251,15 @@ export const sendNotification = async function (
   };
   try {
     const response = await fetch(requestDetails.endpoint, requestOptions);
-      if (!response.ok) {
-        throw new WebPushError(
-          "Received unexpected response code",
-          response.status,
-          response.headers,
-          response.statusText,
-          requestDetails.endpoint
-        );
-      }
+    if (!response.ok) {
+      throw new WebPushError(
+        "Received unexpected response code",
+        response.status,
+        response.headers,
+        response.statusText,
+        requestDetails.endpoint
+      );
+    }
     // console.log(response)
     const responseBody = await response.text();
     console.log(responseBody);

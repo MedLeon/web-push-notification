@@ -11,6 +11,13 @@
     "prettier": "^2.5.1",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@7.15.0",
-  "name": "web-push-notification"
+  "packageManager": "npm@9.8.1",
+  "name": "web-push-notification",
+  "version": "1.0.0",
+  "workspaces": [
+    "docs",
+    "apps/*",
+    "packages/*",
+    "packages/**/*"
+  ]
 }

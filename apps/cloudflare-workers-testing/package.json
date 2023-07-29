@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "web-push": "^3.6.3",
-    "web-push-notification": "workspace:*"
+    "web-push-notification": "*"
   }
 }
