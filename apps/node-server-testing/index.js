@@ -3,12 +3,12 @@ import { sendNotification } from "web-push-notification/server";
 // get subscription from somewhere. Most likely a DB like Postgres.
 const pushSubscription = {
   endpoint:
-    "https://fcm.googleapis.com/fcm/send/fy2hK-ceglQ:APA91bFsj9NNwriJv6X63RvPfCSrToogNFkycIuk9r1xkCZgZTyJgxm4zGqqzPFYprJiJks3YSRxVu9QD0gUDHMjoil3XTEOpR7xQ-wSZ7u27A5H3w178vN2F_UwH8yIuyOo8igQNIs1",
+    "https://fcm.googleapis.com/fcm/send/d2I84eWBah0:APA91bFaOHWR-P7k-GmfaoqvPQ6LDuguSSIg7HIdTjc5Gmaj-mpiMWnaOJrjK2yQGd4GDeeoMjUJAe-mbyLazi-UPF09pvE1VXDdjAKhRalfHEFPv9OtPfrwcldmnvEN8VP5HUWZKC0n",
   expirationTime: null,
   keys: {
     p256dh:
-      "BOeZPXXropUz0ZAxqCsRFWpDp4VeV4tZiwBiCUOflabc7ggKVrlNcJ7awKHtU8o8WsTodc9afmLDhLQS-yAQHFI",
-    auth: "bi4XGrVWr0sTM1m_2FGJsA",
+      "BIqIbaGGkQmujJ_b9mwUeKH95-ArlUXk3qHjNthrUr-62FhglpZ2Sk4nmmSuwKIbnDdJQ0xblcDQlvjs1sr1luM",
+    auth: "ZOuDOc4bOdQOW7AD_IbDyQ",
   },
 };
 
@@ -17,7 +17,7 @@ const notification = {
   title: "NODE IS WORKING!",
   options: {
     body: "This is a notification from the Node server",
-  }
+  },
 };
 
 // your Vapid Details from Step 1

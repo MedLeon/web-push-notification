@@ -1,4 +1,4 @@
-# Web Push notification
+# Web Push notification - DONT USE YET
 
 ## What is it?
 
