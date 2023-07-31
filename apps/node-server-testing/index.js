@@ -1,4 +1,4 @@
-import { sendNotification } from "web-push-notification";
+import { sendNotification } from "web-push-notification/server";
 
 // get subscription from somewhere. Most likely a DB like Postgres.
 const pushSubscription = {
@@ -14,7 +14,10 @@ const pushSubscription = {
 
 // create notification information
 const notification = {
-  text: "NODE IS WORKING!",
+  title: "NODE IS WORKING!",
+  options: {
+    body: "This is a notification from the Node server",
+  }
 };
 
 // your Vapid Details from Step 1
@@ -25,7 +28,7 @@ const vapidDetails = {
   privateKey: "s3R9JPNveMo6SMY5BQn23jJNlUwKeinGYE1EM2Rw2WQ",
 };
 
-sendNotification(notification.text, pushSubscription, vapidDetails)
+sendNotification(notification, pushSubscription, vapidDetails);
 // const webpush = require("web-push");
 
 // // webpush.setGCMAPIKey('<Your GCM API Key Here>');

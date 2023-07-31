@@ -1,8 +1,10 @@
 {
   "name": "web-push-notification",
-  "version": "1.0.0",
-  "main": "./src/server/index.js",
-  "types": "./src/server/index.js",
+  "version": "0.1.0",
+  "exports": {
+    "./server": "./src/server/index.js",
+    "./client": "./src/client/index.js"
+  },
   "license": "MPL-2.0",
   "type": "module",
   "scripts": {
@@ -14,9 +16,7 @@
   },
   "dependencies": {
     "asn1.js": "^5.4.1",
-    "base64-arraybuffer": "^1.0.2",
     "http_ece": "^1.1.0",
-    "jws": "^4.0.0",
-    "wasm-web-push": "*"
+    "jws": "^4.0.0"
   }
 }

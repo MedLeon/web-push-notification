@@ -4,15 +4,16 @@
 ---
 
 <script>
-  import { newSubscription } from "web-push-notification";
+  import { newSubscription } from "web-push-notification/client";
 
-
-  const mySubscription = await newSubscription({
+  document.querySelector("#sub")?.addEventListener('click', async () => {
+    const mySubscription = await newSubscription({
     applicationServerKey:
       "BC5koZoTOHO9_M818EO3AgJDSMM16GoecgTAKeBk4dAH0q8X2Kao8hh5o0ycK2_t3vu3cBWm-p2f6fUX_BIhb-E", //created in step 1
   });
   console.log(mySubscription);
-  console.log("end");
+  })
+
 </script>
 
 <html lang="en">
@@ -26,6 +27,7 @@
   <body>
     <h1>Astro</h1>
     <img id="hero-img" src="" />
+    <button id="sub">Subscribe</button>
     <p>Welcome to Astro!</p>
   </body>
 </html>

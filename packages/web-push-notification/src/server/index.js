@@ -1,7 +1,5 @@
-import wasmWebPush from "wasm-web-push";
 import { encrypt } from "./helper/encyption.js";
 import pkg from "./helper/vapid-helper.cjs";
-const { test_web_push } = wasmWebPush;
 const { getVapidHeaders } = pkg;
 
 // Default TTL is four weeks.
@@ -42,6 +40,9 @@ const generateRequestDetails = async function (
   vapidDetails,
   options
 ) {
+  if (typeof subscription == "string") {
+    subscription = JSON.parse(subscription);
+  }
   if (!subscription || !subscription.endpoint) {
     throw new Error(
       "You must pass in a subscription with at least " + "an endpoint."
@@ -222,15 +223,47 @@ const generateRequestDetails = async function (
   }
   return requestDetails;
 };
+
+/**
+ * Sends an encrypted notification.
+ *
+ * @param  {Object} notification - The notification you want to send to the subscriber.
+ * @param {string} notification.title - The title that must be shown within the notification
+ * @param {Object} [notification.options] - An object that allows configuring the notification. It can have the following properties:
+ * @param {Object[]} [notification.options.actions] - An array of actions to display in the notification. Each element in the array is an object with the following members:
+ * @param {string} notification.options.actions.action - A string identifying a user action to be displayed on the notification
+ * @param {string} notification.options.actions.title - A string containing action text to be shown to the user
+ * @param {string} notification.options.actions.icon - A string containing the URL of an icon to display with the action
+ * @param {string} [notification.options.badge] - A string containing the URL of an image to represent the notification when there is not enough space to display the notification itself
+ * @param {string} [notification.options.body] - A string representing an extra content to display within the notification
+ * @param {any} [notification.options.data] - Arbitrary data that you want to be associated with the notification. This can be of any data type
+ * @param {string} [notification.options.dir] - The direction of the notification; it can be auto, ltr, or rtl
+ * @param {string} [notification.options.icon] - A string containing the URL of an image to be used as an icon by the notification
+ * @param {string} [notification.options.image] - A string containing the URL of an image to be displayed in the notification
+ * @param {string} [notification.options.lang] - Specify the lang used within the notification. This string must be a valid language tag according to RFC 5646: Tags for Identifying Languages (also known as BCP 47)
+ * @param {boolean} [notification.options.renotify] - A boolean that indicates whether to suppress vibrations and audible alerts when reusing a tag value
+ * @param {boolean} [notification.options.requireInteraction] - Indicates that on devices with sufficiently large screens, a notification should remain active until the user clicks or dismisses it
+ * @param {boolean} [notification.options.silent] - When set indicates that no sounds or vibrations should be made
+ * @param {string} [notification.options.tag] - An ID for a given notification that allows you to find, replace, or remove the notification using a script if necessary
+ * @param {number} [notification.options.timestamp] - A timestamp, given as Unix time in milliseconds, representing the time associated with the notification
+ * @param {number[]} [notification.options.vibrate] - A vibration pattern to run with the display of the notification. A vibration pattern can be an array with as few as one member. The values are times in milliseconds where the even indices (0, 2, 4, etc.) indicate how long to vibrate and the odd indices indicate how long to pause
+
+
+ * @param  {IPushSubscription} subscription The PushSubscription you wish to
+ * send the notification to. You've received this object from your web app.
+ * @param  {Object} vapidDetails Your VAPID details.
+ * @param  {string} vapidDetails.subject This must be either a URL or a 'mailto:' address. For example: 'https://your-website.com/contact' or 'mailto: info@your-website.com'
+ * @param  {string} vapidDetails.publicKey  The public key you've generated. 
+ * @param  {string} vapidDetails.privateKey The private key you've generated. Reminder: Store this private key safely!
+ *
+ * @return {Promise<undefined>} TODO: Add return value
+ */
 export const sendNotification = async function (
   notification,
   subscription,
   vapidDetails,
   options
 ) {
-  console.log("sendNotification");
-  console.log(add(1, 2));
-
   // #TODO Add validation of input
   /*
         vapidHelper.validateSubject(subject);
@@ -239,7 +272,7 @@ export const sendNotification = async function (
       */
   let requestDetails = await generateRequestDetails(
     subscription,
-    notification,
+    JSON.stringify(notification),
     vapidDetails,
     options
   );

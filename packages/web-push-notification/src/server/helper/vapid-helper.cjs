@@ -217,7 +217,6 @@ function getVapidHeaders(audience, subject, publicKey, privateKey, contentEncodi
 }
 
 module.exports = {
-  generateVAPIDKeys: generateVAPIDKeys,
   getFutureExpirationTimestamp: getFutureExpirationTimestamp,
   getVapidHeaders: getVapidHeaders,
   validateSubject: validateSubject,
