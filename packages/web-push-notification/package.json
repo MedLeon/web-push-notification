@@ -1,9 +1,24 @@
 {
   "name": "web-push-notification",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "description": "Simple web push notification - client and server library",
+  "keywords": [
+    "push notification",
+    "push notifications",
+    "push notifications svelte",
+    "web push",
+    "web push api",
+    "push notifications react",
+    "push notifications vite",
+    "push notifications qwik"
+  ],
   "exports": {
     "./server": "./src/server/index.js",
     "./client": "./src/client/index.js"
+  },
+  "author": {
+    "name": "Leon Feron",
+    "email": "leonferon@icloud.com"
   },
   "license": "MPL-2.0",
   "type": "module",

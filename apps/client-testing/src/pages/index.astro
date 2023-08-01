@@ -6,14 +6,24 @@
 <script>
   import { newSubscription } from "web-push-notification/client";
 
-  document.querySelector("#sub")?.addEventListener('click', async () => {
+  document.querySelector("#sub")?.addEventListener("click", async () => {
     const mySubscription = await newSubscription({
-    applicationServerKey:
-      "BC5koZoTOHO9_M818EO3AgJDSMM16GoecgTAKeBk4dAH0q8X2Kao8hh5o0ycK2_t3vu3cBWm-p2f6fUX_BIhb-E", //created in step 1
+      applicationServerKey:
+        "BC5koZoTOHO9_M818EO3AgJDSMM16GoecgTAKeBk4dAH0q8X2Kao8hh5o0ycK2_t3vu3cBWm-p2f6fUX_BIhb-E", //created in step 1
+    });
+    console.log(mySubscription);
+    document.querySelector("#subDetails").innerHTML = JSON.stringify(
+      mySubscription
+    );
   });
-  console.log(mySubscription);
-  })
 
+  document.querySelector("#unreg")?.addEventListener("click", () => {
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  });
 </script>
 
 <html lang="en">
@@ -25,9 +35,12 @@
     <title>Astro</title>
   </head>
   <body>
-    <h1>Astro</h1>
+    <h1>Test environment</h1>
     <img id="hero-img" src="" />
     <button id="sub">Subscribe</button>
-    <p>Welcome to Astro!</p>
+
+    <div id="subDetails"></div>
+
+    <button id="unreg">Unregister</button>
   </body>
 </html>

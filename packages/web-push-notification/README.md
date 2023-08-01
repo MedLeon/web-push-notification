@@ -20,11 +20,13 @@ The **server library** part...
 - have independent imports. So you don't bloat your client side footprint.
 - don't have to be used together! For example you could use [Rust web_push](https://docs.rs/web-push/latest/web_push/) for your server.
 
+
 ## How to use it
 
 ### Step 1: Create Vapid Keys
 
 Just go to [this link](https://www.stephane-quantin.com/en/tools/generators/vapid-keys) and generate them. 
+
 
 ### Step 2: Create subscription on the client side
 
@@ -54,6 +56,7 @@ await fetch('https://your-domain.com/subscribe', {body: stringifiedSubscription}
 
 ```
 
+
 ### Step 3: Create endpoint for saving on the server/function/edge function
 
 This highly depends on your kind of server/function/edge function.
@@ -68,6 +71,7 @@ const newSubscription = request.body //depends on your server
 someImaginativeDB.saveSomewhere(newSubscription)
 
 ```
+
 
 ### Step 4: Send Notification
 Again on the server: 
@@ -115,6 +119,5 @@ Don't get me wrong: The OG way does work perfectly but it is hard to replicate t
 
 The smart solution I tried (but ultimately failed):
 As the tasks are only data manipulation I thought I could do an extra clever solution: One universal WASM script (these are supported in Deno, Node and Cloudflare Workers!).
-Rust (which can be compiled to WASM) has all the required libraries [ece](https://crates.io/crates/ece) and [vapid](https://docs.rs/vapid/latest/vapid/) or even [Rust web-push](https://crates.io/crates/web-push). Unfortunately these libraries depend on ancient c libraries that for some reasons (could't be compiled to WASM)[https://github.com/sfackler/rust-openssl/issues/1016].
+Rust (which can be compiled to WASM) has all the required libraries [ece](https://crates.io/crates/ece) and [vapid](https://docs.rs/vapid/latest/vapid/) or even [Rust web-push](https://crates.io/crates/web-push). Unfortunately these libraries depend on ancient c libraries that for some reasons [could't be compiled to WASM](https://github.com/sfackler/rust-openssl/issues/1016).
  
- ### 

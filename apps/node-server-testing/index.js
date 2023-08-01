@@ -1,22 +1,31 @@
 import { sendNotification } from "web-push-notification/server";
 
 // get subscription from somewhere. Most likely a DB like Postgres.
+
 const pushSubscription = {
   endpoint:
-    "https://fcm.googleapis.com/fcm/send/d2I84eWBah0:APA91bFaOHWR-P7k-GmfaoqvPQ6LDuguSSIg7HIdTjc5Gmaj-mpiMWnaOJrjK2yQGd4GDeeoMjUJAe-mbyLazi-UPF09pvE1VXDdjAKhRalfHEFPv9OtPfrwcldmnvEN8VP5HUWZKC0n",
+    "https://fcm.googleapis.com/fcm/send/efsDzfzDO7Y:APA91bGVT3nDpXPXggyDWHmpt1H_ySzmBjk2IK4b5_sIc3mp6jq1cBZrQqA5BE3dI52kthUqo5quAQpccflIp2JL_hDxoXP60xMi0B4bWq8QLhyMn7R5hBIwdG8Cn1caw5V28QQT0uDn",
   expirationTime: null,
   keys: {
     p256dh:
-      "BIqIbaGGkQmujJ_b9mwUeKH95-ArlUXk3qHjNthrUr-62FhglpZ2Sk4nmmSuwKIbnDdJQ0xblcDQlvjs1sr1luM",
-    auth: "ZOuDOc4bOdQOW7AD_IbDyQ",
+      "BOX4Q1Yiyk0pzaAW-ixvvwSNukV1O5089T0Nmc4ORpXa8Jdzooq93F4ZRye1cf3E7oKb9JoHbCkoftZXpzJ8fr0",
+    auth: "j18kbFV1RKafAGGdCtkQsw",
   },
 };
 
 // create notification information
+/** @type {notification} */
 const notification = {
   title: "NODE IS WORKING!",
   options: {
     body: "This is a notification from the Node server",
+    actions: [
+      {
+        action: "https://www.google.com",
+        title: "Go to the site",
+      },
+    ],
+    data: { url: "http://localhost:3000" },
   },
 };
 
