@@ -25,6 +25,7 @@
   "scripts": {
     "generate": ""
   },
+  "funding": "https://paypal.me/leonferon",
   "devDependencies": {
     "@types/node": "^20.4.5",
     "typescript": "latest"

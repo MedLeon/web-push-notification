@@ -4,12 +4,12 @@ import { sendNotification } from "web-push-notification/server";
 
 const pushSubscription = {
   endpoint:
-    "https://fcm.googleapis.com/fcm/send/efsDzfzDO7Y:APA91bGVT3nDpXPXggyDWHmpt1H_ySzmBjk2IK4b5_sIc3mp6jq1cBZrQqA5BE3dI52kthUqo5quAQpccflIp2JL_hDxoXP60xMi0B4bWq8QLhyMn7R5hBIwdG8Cn1caw5V28QQT0uDn",
+    "https://fcm.googleapis.com/fcm/send/co5HUsQdtKE:APA91bGA8QUC23y4Prx3nrRsh6KJoKZxz0lHYgiUas3lMX_itbzcY58-NgtiRBCK5IFQ8-Q2OODKgoePc_Wt4vGzSB4tUraM7gCiz_bNrXQbKQkEgxXGOYhLPsZYrk2Tm0lyt-eqPodL",
   expirationTime: null,
   keys: {
     p256dh:
-      "BOX4Q1Yiyk0pzaAW-ixvvwSNukV1O5089T0Nmc4ORpXa8Jdzooq93F4ZRye1cf3E7oKb9JoHbCkoftZXpzJ8fr0",
-    auth: "j18kbFV1RKafAGGdCtkQsw",
+      "BOTMLSRW_Pd_3KPWzspJeXFq7RichSsk5CHVvN5QAIvr1pd6hnhp2UYfRWo-x59OOprP4wEkyMbJeHpLqwtWmq8",
+    auth: "YxwfH0CqOR1poWVM26McWg",
   },
 };
 
@@ -25,9 +25,11 @@ const notification = {
         title: "Go to the site",
       },
     ],
-    data: { url: "http://localhost:3000" },
+    data: { url: "https://zingy-manatee-afda73.netlify.app" },
   },
 };
+
+// for chrome testing: {"title":"NODE IS WORKING!","options":{"body":"This is a notification from the Node server","actions":[{"action":"https://www.google.com","title":"Go to the site"}]}}
 
 // your Vapid Details from Step 1
 const vapidDetails = {
