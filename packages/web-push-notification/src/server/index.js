@@ -78,15 +78,11 @@ const generateRequestDetails = async function (
   if (options) {
     const validOptionKeys = [
       "headers",
-      "gcmAPIKey",
       "vapidDetails",
       "TTL",
       "contentEncoding",
       "urgency",
       "topic",
-      "proxy",
-      "agent",
-      "timeout",
     ];
     const optionKeys = Object.keys(options);
     for (let i = 0; i < optionKeys.length; i += 1) {

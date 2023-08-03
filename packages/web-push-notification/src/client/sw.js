@@ -1,6 +1,5 @@
 self.addEventListener("push", function (event) {
   const notification = event.data?.json();
-  console.log("notification", notification);
   event.waitUntil(
     self.registration.showNotification(notification.title, notification.options)
   );

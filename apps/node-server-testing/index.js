@@ -2,14 +2,25 @@ import { sendNotification } from "web-push-notification/server";
 
 // get subscription from somewhere. Most likely a DB like Postgres.
 
+// const pushSubscription = {
+//   endpoint:
+//     "https://fcm.googleapis.com/fcm/send/co5HUsQdtKE:APA91bGA8QUC23y4Prx3nrRsh6KJoKZxz0lHYgiUas3lMX_itbzcY58-NgtiRBCK5IFQ8-Q2OODKgoePc_Wt4vGzSB4tUraM7gCiz_bNrXQbKQkEgxXGOYhLPsZYrk2Tm0lyt-eqPodL",
+//   expirationTime: null,
+//   keys: {
+//     p256dh:
+//       "BOTMLSRW_Pd_3KPWzspJeXFq7RichSsk5CHVvN5QAIvr1pd6hnhp2UYfRWo-x59OOprP4wEkyMbJeHpLqwtWmq8",
+//     auth: "YxwfH0CqOR1poWVM26McWg",
+//   },
+// };
+
 const pushSubscription = {
   endpoint:
-    "https://fcm.googleapis.com/fcm/send/co5HUsQdtKE:APA91bGA8QUC23y4Prx3nrRsh6KJoKZxz0lHYgiUas3lMX_itbzcY58-NgtiRBCK5IFQ8-Q2OODKgoePc_Wt4vGzSB4tUraM7gCiz_bNrXQbKQkEgxXGOYhLPsZYrk2Tm0lyt-eqPodL",
+    "https://fcm.googleapis.com/fcm/send/chTmn268lEo:APA91bFckxoWemTDaKNF1tsDUqM6MzJGnVrOaZ85N5hpAFSsMtbwK8oX3rn98D3ICdqVKFcPnM_aD7JSQq-j9QiGe2cl36oRjt3sDuq7i8yHwab8CNW79zRz_oWCM0pGxQSA5NCZeBOn",
   expirationTime: null,
   keys: {
     p256dh:
-      "BOTMLSRW_Pd_3KPWzspJeXFq7RichSsk5CHVvN5QAIvr1pd6hnhp2UYfRWo-x59OOprP4wEkyMbJeHpLqwtWmq8",
-    auth: "YxwfH0CqOR1poWVM26McWg",
+      "BLxBP9wPZyhvPwKr9tQ_2094MRF_CM5T-8r40z-6ZjjyK154zpohkGTxfj3d7omgsVzX8WB11yZrjTtaix3Ogms",
+    auth: "P5f0wx4y2NYjGdm4eR51dQ",
   },
 };
 
@@ -19,13 +30,13 @@ const notification = {
   title: "NODE IS WORKING!",
   options: {
     body: "This is a notification from the Node server",
-    actions: [
-      {
-        action: "https://www.google.com",
-        title: "Go to the site",
-      },
-    ],
-    data: { url: "https://zingy-manatee-afda73.netlify.app" },
+    // actions: [
+    //   {
+    //     action: "https://www.google.com",
+    //     title: "Go to the site",
+    //   },
+    // ],
+    // data: { url: "https://zingy-manatee-afda73.netlify.app/test" },
   },
 };
 

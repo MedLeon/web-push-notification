@@ -9,6 +9,7 @@ The **client library** part...
 - works with every framework as long as you are using [vite](https://vitejs.dev) for your build
 - thus works with Svelte, React, Vue, Qwik, Astro or just with plain JS.
 - has a tiny footprint (<1kb)
+- caveat: does install a service worker that may interferes with your primary service worker (if you have one)
 
 The **server library** part...
 
@@ -88,7 +89,8 @@ const subscription = someImaginativeDB.get(...)
 const notification = {
     title: "....",
     options: {
-        body: "..."
+        body: "...",
+        data: { url: "https://www.your-domain/new-blog-post" }, // Recommended workaround. Actions are buggy in Safari AND in Chromium. More about that in the FAQs. 
     }
 }
 
@@ -121,3 +123,8 @@ The smart solution I tried (but ultimately failed):
 As the tasks are only data manipulation I thought I could do an extra clever solution: One universal WASM script (these are supported in Deno, Node and Cloudflare Workers!).
 Rust (which can be compiled to WASM) has all the required libraries [ece](https://crates.io/crates/ece) and [vapid](https://docs.rs/vapid/latest/vapid/) or even [Rust web-push](https://crates.io/crates/web-push). Unfortunately these libraries depend on ancient c libraries that for some reasons [could't be compiled to WASM](https://github.com/sfackler/rust-openssl/issues/1016).
  
+### Why is there aa special non-standard way to handle Actions ( {data: {url: ""}} )?
+
+Main reason being the current Safari/WebKit implementation. While the official video ["Meet Web Push for Safari"](https://developer.apple.com/videos/play/wwdc2022/10098/) does display the wanted behavior, the reality is actually different. No click what so ever does emit a [event.action](https://developer.apple.com/forums/thread/726793).
+And in Chromium a click upon an action does open a text input prompt for whatever reason. 
+My advice: Present options on the page you define in options.data.url (and don't use the official options.actions atm).
