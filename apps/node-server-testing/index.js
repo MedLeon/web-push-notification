@@ -15,12 +15,11 @@ import { sendNotification } from "web-push-notification/server";
 
 const pushSubscription = {
   endpoint:
-    "https://fcm.googleapis.com/fcm/send/chTmn268lEo:APA91bFckxoWemTDaKNF1tsDUqM6MzJGnVrOaZ85N5hpAFSsMtbwK8oX3rn98D3ICdqVKFcPnM_aD7JSQq-j9QiGe2cl36oRjt3sDuq7i8yHwab8CNW79zRz_oWCM0pGxQSA5NCZeBOn",
-  expirationTime: null,
+    "https://web.push.apple.com/QDAlOUZ0TdCmjPb0EuK1gdZQ251s75QuZ1DqSq_fQem-mOteFIPm8frpZfh801e4LyYADQrIt1NwA7xypJP1hm6F-xLoPXR743Jiausum7q7IvNiJXboRM9jIkqdAre5pUgLaPDIgpC25Y-w9a0gkzayzS7MQGNvFOpU98HWl34",
   keys: {
     p256dh:
-      "BLxBP9wPZyhvPwKr9tQ_2094MRF_CM5T-8r40z-6ZjjyK154zpohkGTxfj3d7omgsVzX8WB11yZrjTtaix3Ogms",
-    auth: "P5f0wx4y2NYjGdm4eR51dQ",
+      "BOol6OiriSx9WrD3sVSSmbgJUc6HhK9boRG_g5SnIW9UrWiNV1TC4PiG5AyuzsFKH0bPyguJhmLqHVPyElW1a4g",
+    auth: "9Uu4xLrofSu5y96j_nXwjg",
   },
 };
 

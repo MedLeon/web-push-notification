@@ -1,7 +1,7 @@
 {
   "name": "web-push-notification",
-  "version": "0.1.1",
-  "description": "Simple web push notification - client and server library",
+  "version": "1.0.1",
+  "description": "Simple web push notifications - client and server library",
   "keywords": [
     "push notification",
     "push notifications",
@@ -19,6 +19,10 @@
   "author": {
     "name": "Leon Feron",
     "email": "leonferon@icloud.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MedLeon/web-push-notification"
   },
   "license": "MPL-2.0",
   "type": "module",

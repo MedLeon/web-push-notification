@@ -1,15 +1,15 @@
-# Web Push notification - DONT USE YET
+# Web Push notification
 
 ## What is it?
 
-Web Push notification only work with two sides: A client (=Web App like React/Svelte/Astro/Vue...) and a server (=node server/cloudflare worker/deno/...). This library aims to simplify both sides.
+Web Push notification only work with two sides: A client (=Web App like React/Svelte/Astro/Vue...) and a server (=node server/cloudflare worker/deno/...). This library aims to drastically simplify both sides.
 
 The **client library** part...
 
 - works with every framework as long as you are using [vite](https://vitejs.dev) for your build
 - thus works with Svelte, React, Vue, Qwik, Astro or just with plain JS.
 - has a tiny footprint (<1kb)
-- caveat: does install a service worker that may interferes with your primary service worker (if you have one)
+- caveat: does install a service worker that may interferes with your primary service worker (if you have one). Further infos in the FAQ.
 
 The **server library** part...
 
@@ -43,7 +43,6 @@ import { newSubscription } from "web-push-notification/client"
 
 const mySubscription = await newSubscription({
     applicationServerKey: "you-server-key", //created in step 1
-    ...
 });
 
 
@@ -66,7 +65,7 @@ This highly depends on your kind of server/function/edge function.
 
 ```
 // get subscription from the request
-const newSubscription = request.body //depends on your server
+const newSubscription = request.body //depends on your type of server and/or library (like express)
 
 // save somewhere. Most likely a DB like Postgres.
 someImaginativeDB.saveSomewhere(newSubscription)
@@ -128,3 +127,17 @@ Rust (which can be compiled to WASM) has all the required libraries [ece](https:
 Main reason being the current Safari/WebKit implementation. While the official video ["Meet Web Push for Safari"](https://developer.apple.com/videos/play/wwdc2022/10098/) does display the wanted behavior, the reality is actually different. No click what so ever does emit a [event.action](https://developer.apple.com/forums/thread/726793).
 And in Chromium a click upon an action does open a text input prompt for whatever reason. 
 My advice: Present options on the page you define in options.data.url (and don't use the official options.actions atm).
+
+
+### There is a bug or a feature is missing!
+
+Feel free to contact me via [twitter](https://twitter.com/LeonFeron).
+
+The repo is also open for Pull requests.
+
+### Service Worker Scope
+
+Every service worker is installed with a scope and there can only be one for each scope. 
+The service worker JavaScript file is placed in your assets folder by vite. Thus the scope is - you guessed it - your asset path. 
+If you have a SW it most likely is at a root level and is not bothered. But caching the asset folder with request handling by your main SW may not work.
+ 
