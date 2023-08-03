@@ -8,3 +8,7 @@ Go here:
 ## Repo structure
 
 Main package - [packages/web-push-notification]
+Main package - [/packages/web-push-notification]
+Main package - [./packages/web-push-notification]
+Main package - [/packages/web-push-notification/]
+Main package - [/packages/web-push-notification/]
