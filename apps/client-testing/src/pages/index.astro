@@ -7,14 +7,11 @@
   import { newSubscription } from "web-push-notification/client";
 
   document.querySelector("#sub")?.addEventListener("click", async () => {
-    const mySubscription = await newSubscription({
-      applicationServerKey:
-        "BC5koZoTOHO9_M818EO3AgJDSMM16GoecgTAKeBk4dAH0q8X2Kao8hh5o0ycK2_t3vu3cBWm-p2f6fUX_BIhb-E", //created in step 1
-    });
-    console.log(mySubscription);
-    document.querySelector("#subDetails").innerHTML = JSON.stringify(
-      mySubscription
+    const mySubscription = await newSubscription(
+      "BC5koZoTOHO9_M818EO3AgJDSMM16GoecgTAKeBk4dAH0q8X2Kao8hh5o0ycK2_t3vu3cBWm-p2f6fUX_BIhb-E"
     );
+    console.log(mySubscription);
+    document.querySelector("#subDetails").innerHTML = mySubscription;
   });
 
   document.querySelector("#unreg")?.addEventListener("click", () => {

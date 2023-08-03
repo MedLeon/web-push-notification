@@ -251,8 +251,10 @@ const generateRequestDetails = async function (
  * @param  {string} vapidDetails.subject This must be either a URL or a 'mailto:' address. For example: 'https://your-website.com/contact' or 'mailto: info@your-website.com'
  * @param  {string} vapidDetails.publicKey  The public key you've generated. 
  * @param  {string} vapidDetails.privateKey The private key you've generated. Reminder: Store this private key safely!
- *
- * @return {Promise<undefined>} TODO: Add return value
+ * @param {Object} [options] - An object that allows further configuring. Currently not documented and not advised to use. 
+ * 
+ * 
+ * @return {Promise<Response>} Returns Fetch API's Response object.
  */
 export const sendNotification = async function (
   notification,
@@ -272,34 +274,16 @@ export const sendNotification = async function (
     vapidDetails,
     options
   );
-  console.log(requestDetails);
+
   const requestOptions = {
     method: requestDetails.method,
     headers: requestDetails.headers,
     body: requestDetails.body,
   };
-  try {
-    const response = await fetch(requestDetails.endpoint, requestOptions);
-    if (!response.ok) {
-      throw new WebPushError(
-        "Received unexpected response code",
-        response.status,
-        response.headers,
-        response.statusText,
-        requestDetails.endpoint
-      );
-    }
-    // console.log(response)
-    const responseBody = await response.text();
-    console.log(responseBody);
-    return {
-      statusCode: response.status,
-      body: responseBody,
-      headers: response.headers,
-    };
-  } catch (err) {
-    throw err;
-  }
+
+  const response = await fetch(requestDetails.endpoint, requestOptions);
+
+  return response;
 };
 
 /** @typedef {Object} VapidDetails
@@ -337,6 +321,5 @@ export const sendNotification = async function (
  */
 /** @typedef {Object} IPushSubscription
  * @property {string} endpoint
- * @property {null|number} expirationTime
  * @property {IKeys} keys
  */

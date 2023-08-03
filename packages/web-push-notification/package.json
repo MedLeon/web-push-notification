@@ -1,6 +1,6 @@
 {
   "name": "web-push-notification",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Simple web push notifications - client and server library",
   "keywords": [
     "push notification",
@@ -16,6 +16,16 @@
     "./server": "./src/server/index.js",
     "./client": "./src/client/index.js"
   },
+  "typesVersions": {
+    "*": {
+      "client": [
+        "types/client/index.d.ts"
+      ],
+      "server": [
+        "types/server/index.d.ts"
+      ]
+    }
+  },
   "author": {
     "name": "Leon Feron",
     "email": "leonferon@icloud.com"
@@ -27,12 +37,14 @@
   "license": "MPL-2.0",
   "type": "module",
   "scripts": {
-    "generate": ""
+    "generate": "npx tsc src/**/index.js --declaration --emitDeclarationOnly --allowJs --declarationDir types",
+    "gp": "npm run generate && npm publish "
   },
   "funding": "https://paypal.me/leonferon",
   "devDependencies": {
-    "@types/node": "^20.4.5",
-    "typescript": "latest"
+    "@types/node": "^20.4.6",
+    "typescript": "latest",
+    "undici": "^5.23.0"
   },
   "dependencies": {
     "asn1.js": "^5.4.1",

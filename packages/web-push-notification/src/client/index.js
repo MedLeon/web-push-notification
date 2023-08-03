@@ -1,19 +1,30 @@
+/// <reference lib="dom" />
+
 import wokerUrl from "./sw.js?worker&url";
 
 let sw = null;
 
-/** @param {{ applicationServerKey }} input
- * @returns {Promise<string>}
+/**
+ * Takes your applicationServerKey and returns a stringified subscription string.
+ *
+ * This string can be directly used in your backend to send push notifications.
+ *
+ * @example
+ * const stringifiedNewSubscription = await newSubscription("your-applicationServerKey");
+ * await fetch('https://your-domain.com/subscribe', {body: stringifiedNewSubscription});
+ *
+ * @param { string } applicationServerKey - generated in step 1 (https://www.stephane-quantin.com/en/tools/generators/vapid-keys) ;
+ * @returns {Promise<string>} return stringified subscription
  */
-export async function newSubscription(input) {
-  console.log("new");
-  //   let sw = await navigator.serviceWorker.ready;
-  console.log("sw", sw);
-  // let sw = await navigator.serviceWorker.register(wokerUrl);
+export async function newSubscription(applicationServerKey) {
+  const ask =
+    typeof applicationServerKey === "string"
+      ? applicationServerKey
+      : applicationServerKey.applicationServerKey;
   return JSON.stringify(
     await sw.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: input.applicationServerKey,
+      applicationServerKey: ask,
     })
   );
 }
@@ -24,5 +35,4 @@ addEventListener("load", async () => {
     import.meta.url
   );
   sw = await navigator.serviceWorker.register(swURL);
-  console.log("sw", sw);
 });

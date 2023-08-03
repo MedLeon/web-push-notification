@@ -15,16 +15,16 @@ import { sendNotification } from "web-push-notification/server";
 
 const pushSubscription = {
   endpoint:
-    "https://web.push.apple.com/QDAlOUZ0TdCmjPb0EuK1gdZQ251s75QuZ1DqSq_fQem-mOteFIPm8frpZfh801e4LyYADQrIt1NwA7xypJP1hm6F-xLoPXR743Jiausum7q7IvNiJXboRM9jIkqdAre5pUgLaPDIgpC25Y-w9a0gkzayzS7MQGNvFOpU98HWl34",
+    "https://fcm.googleapis.com/fcm/send/c6k075LLUxI:APA91bFrdAHCj8eIt7EFHvgh-UryQ-yUuf76PQ-fm4AqXYajbE6s_SWxJLu1vinMAVzEWOawgrvtpKENcUwbDLpS-y01df6XvGBFFOUMspfeCgesWkKjYvyiPyQjteZSz4NUdr86e4hM",
+  expirationTime: null,
   keys: {
     p256dh:
-      "BOol6OiriSx9WrD3sVSSmbgJUc6HhK9boRG_g5SnIW9UrWiNV1TC4PiG5AyuzsFKH0bPyguJhmLqHVPyElW1a4g",
-    auth: "9Uu4xLrofSu5y96j_nXwjg",
+      "BJaNLXdvBCA8PdKHETxEI2Y11pEhnm-_IAMqYs98KGkNWfL8cHoF0qrkR1qC2P-emEcSdhdn9kE5lRIpqHwFWAo",
+    auth: "ITWfvqE54SIwZWYQws1jbQ",
   },
 };
 
 // create notification information
-/** @type {notification} */
 const notification = {
   title: "NODE IS WORKING!",
   options: {
