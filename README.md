@@ -1,5 +1,7 @@
 # Web Push notification Repository
 
+[Web Push notification npm package](https://www.npmjs.com/package/web-push-notification)
+
 ## Usage instructions
 
 Go here:
